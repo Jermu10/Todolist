@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TodoTable from "./TodoTable";
 
  export default function Todolist() {
   
@@ -14,39 +15,20 @@ import React, { useState } from "react";
       setTodos([...todos, todo]);
     };
 
-    const deleteToDo = (row) => {
-      setTodos(todos.filter((todo, index) => row !== index))
+    const deleteTodo = (index) => {
+      setTodos(todos.filter((todo, i) => i !== index))
     }
 
     return (
       <div className="App">
         <form onSubmit={addTodo}>
-          <input
-            type="date"
-            name="date"
-            value={todo.date}
-            onChange={inputChanged}
-          />
-          <input
-            type="text"
-            name="desc"
-            value={todo.desc}
-            onChange={inputChanged}
-          />
+          <input type="date" name="date" value={todo.date} onChange={inputChanged} />
+          <input type="text" name="desc" value={todo.desc} onChange={inputChanged} />
           <input type="submit" value="Add" />
         </form>
 
-        <table>
-          <tbody>
-            {todos.map((todo, index) => (
-              <tr key={index}>
-                <td>{todo.desc}</td>
-                <td>{todo.date}</td>
-                <td><button onClick={()=>deleteToDo(index)}>Delete</button></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <TodoTable todos={todos} index={todos.index} deleteTodo={() => deleteTodo} />
+
       </div>
     );
   }
