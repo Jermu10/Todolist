@@ -2,7 +2,7 @@ import Todolist from './Todolist'
 import './App.css';
 import React, { useState } from 'react';
 
-function App() {
+export default function App() {
 
 return (
  <div className='App'>
@@ -11,4 +11,4 @@ return (
 )
 }
 
-export default App;
+
