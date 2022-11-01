@@ -3,6 +3,12 @@ import { useRef } from "react"
 import { AgGridReact } from'ag-grid-react'
 import'ag-grid-community/dist/styles/ag-grid.css'
 import'ag-grid-community/dist/styles/ag-theme-material.css'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Stack from '@mui/material/Stack'
+import AdapterMoment from '@mui/x-date-pickers/AdapterMoment'
+import { SettingsOverscanOutlined } from "@mui/icons-material"
+import { DesktopDatePicker } from "@mui/x-date-pickers"
 
 
 
@@ -11,6 +17,8 @@ import'ag-grid-community/dist/styles/ag-theme-material.css'
     const [todo, setTodo] = useState({ description: "", date: "" , priority: ""});
     const [todos, setTodos] = useState([]);
     const gridRef = useRef()
+
+ 
 
     const colums = [
       {field: "description", sortable: "true"},
@@ -38,18 +46,21 @@ import'ag-grid-community/dist/styles/ag-theme-material.css'
       setTodo({description: "", date: "", priority: ""})
     };
 
+    
+
+    
 
 
     return (
       
       <div className="App">
-          <form onSubmit={addTodo}>
-            <input type="text" placeholder="description" name="description" value={todo.description} onChange={inputChanged} />
-            <input type="date" name="date" value={todo.date} onChange={inputChanged} />
-            <input type="text" placeholder="Priority" name="priority" value={todo.priority} onChange={inputChanged} />
-            <input type="submit" value="Add" />
-            <input type="button" value="delete" onClick={deleteRow} />
-          </form>
+          <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
+            <TextField type="text" placeholder="description" name="description" value={todo.description} onChange={inputChanged} />
+            <TextField type="date" name="date" value={todo.date} onChange={inputChanged} />
+            <TextField type="text" placeholder="Priority" name="priority" value={todo.priority} onChange={inputChanged} />
+            <Button onClick={addTodo} variant="contained">Add</Button>
+            <Button type="button" value="delete" onClick={deleteRow} variant="outlined">Delete</Button>
+          </Stack>
           
           
           <div className="ag-theme-material" style={{height:'800px', width: '100%', margin: 'auto'}}>
@@ -58,7 +69,8 @@ import'ag-grid-community/dist/styles/ag-theme-material.css'
             rowData={todos}
             rowSelection="single"
             ref={gridRef}
-            onGridReady={params => gridRef.current = params.api}>
+            onGridReady={params => gridRef.current = params.api}
+            animateRows="true">
           </AgGridReact>
           </div>
             
